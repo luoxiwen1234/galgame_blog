@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArchiveHeader from '../../components/ArchiveHeader.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPublishedPosts } from '../../lib/posts';
+const posts = await getPublishedPosts();
+---
+<BaseLayout title="全部文章｜月色与盛夏之间" description="关于游戏、角色、叙事与视觉的文章。">
+  <div class="archive-page section"><ArchiveHeader eyebrow="WRITING ARCHIVE" title="全部文章" description="关于月光、海风，以及故事为何让人久久不能忘记。" /><div class="post-grid archive-grid">{posts.map((post) => <PostCard post={post} />)}</div></div>
+</BaseLayout>

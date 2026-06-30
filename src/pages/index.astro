@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getPublishedPosts } from '../lib/posts';
+
+const posts = await getPublishedPosts();
+const featured = posts.find((post) => post.data.featured) ?? posts[0];
+const latest = posts.filter((post) => post.id !== featured?.id).slice(0, 3);
+---
+
+<BaseLayout>
+  <section class="hero" id="top">
+    <div class="hero-media" aria-hidden="true"><div class="hero-summer"></div><div class="hero-moon"></div><img class="hero-luna" src="/assets/navel-luna.jpg" alt="" /></div>
+    <div class="hero-copy">
+      <div class="hero-symbol"><span>☾</span><i></i><span>☀</span></div>
+      <h1>月色与<br />盛夏之间</h1>
+      <p>收藏那些在月光与海风中闪耀的相遇，<br />也写下关于角色、故事与季节的文字。</p>
+      <div class="hero-actions"><a class="button primary" href="/blog/">阅读最新文章 →</a><a class="button quiet" href="#characters">浏览角色图鉴</a></div>
+    </div>
+    <div class="hero-caption"><span id="heroSide">SUMMER SIDE</span><strong id="heroLine">那年夏天的蓝，至今仍然清晰。</strong></div>
+    <a class="scroll-cue" href="#featured" aria-label="向下浏览"><i></i></a>
+  </section>
+
+  {featured && <section class="home-posts section" id="featured">
+    <div class="section-heading"><div><span class="jp">FEATURED STORY</span><h2>本期精选</h2></div><p>从作品、人物和场景出发，记录那些值得再次回望的细节。</p></div>
+    <PostCard post={featured} featured />
+  </section>}
+
+  <section class="latest-section section">
+    <div class="section-heading"><div><span class="jp">LATEST WRITINGS</span><h2>最近文章</h2></div><a class="section-link" href="/blog/">查看全部文章 →</a></div>
+    <div class="post-grid">{latest.map((post) => <PostCard post={post} />)}</div>
+  </section>
+
+  <section class="character-section section" id="characters">
+    <div class="section-heading"><div><span class="jp">CHARACTER ARCHIVE</span><h2>角色图鉴</h2></div><p>从月下学院到鸟白岛，选择一位角色，重新听见她的故事。</p></div>
+    <div class="filter-row" id="filters" role="tablist" aria-label="筛选作品"><button class="active" data-filter="all" role="tab" aria-selected="true">全部</button><button data-filter="moon" role="tab" aria-selected="false">月夜礼仪</button><button data-filter="summer" role="tab" aria-selected="false">碧蓝盛夏</button></div>
+    <div class="character-layout"><div class="character-detail" id="characterDetail"></div><div class="character-rail" id="characterRail" aria-label="角色列表"></div></div>
+  </section>
+
+  <section class="gallery-section section" id="gallery">
+    <div class="gallery-heading"><span>MEMORY ALBUM</span><h2>回忆相册</h2><p>有些季节结束了，<br />却永远留在口袋里。</p></div>
+    <div class="gallery-grid">
+      <button class="memory memory-1" data-image="/assets/navel-stage.jpg" data-title="月下的樱公馆"><img src="/assets/navel-stage.jpg" alt="月下的樱公馆" /><span><small>近月少女的礼仪</small><strong>月下的樱公馆</strong></span></button>
+      <button class="memory memory-2" data-image="/assets/summer-cg-01.jpg" data-title="海风吹过的时候"><img src="/assets/summer-cg-01.jpg" alt="海风吹过的时候" /><span><small>Summer Pockets</small><strong>海风吹过的时候</strong></span></button>
+      <button class="memory memory-3" data-image="/assets/navel-cg.jpg" data-title="学院里的日常"><img src="/assets/navel-cg.jpg" alt="学院里的日常" /><span><small>近月少女的礼仪</small><strong>学院里的日常</strong></span></button>
+      <button class="memory memory-4" data-image="/assets/summer-cg-02.jpg" data-title="盛夏仍在继续"><img src="/assets/summer-cg-02.jpg" alt="盛夏仍在继续" /><span><small>Summer Pockets</small><strong>盛夏仍在继续</strong></span></button>
+    </div>
+  </section>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="回忆相册大图" hidden><button class="lightbox-close" id="lightboxClose" aria-label="关闭">×</button><div class="lightbox-card"><img id="lightboxImage" src="/assets/navel-stage.jpg" alt="" /><p id="lightboxTitle"></p></div></div>
+  <script is:inline src="/scripts/home.js"></script>
+</BaseLayout>

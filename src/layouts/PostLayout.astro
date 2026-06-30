@@ -1,0 +1,33 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { formatDate, readingTime } from '../lib/posts';
+import { render } from 'astro:content';
+
+const { entry, previous, next } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={`${entry.data.title}｜月色与盛夏之间`} description={entry.data.description} image={entry.data.cover}>
+  <article class="post-page">
+    <header class="post-hero">
+      <img src={entry.data.cover} alt={entry.data.coverAlt} />
+      <div class="post-hero-shade"></div>
+      <div class="post-hero-copy">
+        <a class="post-category" href={`/categories/${encodeURIComponent(entry.data.category)}/`}>{entry.data.category}</a>
+        <h1>{entry.data.title}</h1>
+        <p>{entry.data.description}</p>
+        <div class="post-meta"><time datetime={entry.data.pubDate.toISOString()}>{formatDate(entry.data.pubDate)}</time><span>约 {readingTime(entry.body)} 分钟阅读</span></div>
+      </div>
+    </header>
+    <div class="post-shell">
+      <div class="prose"><Content /></div>
+      <footer class="post-end">
+        <div class="tag-list">{entry.data.tags.map((tag: string) => <a href={`/tags/${encodeURIComponent(tag)}/`}>#{tag}</a>)}</div>
+        <nav class="post-pagination" aria-label="文章翻页">
+          {previous ? <a href={`/blog/${previous.id}/`}><small>上一篇</small><strong>{previous.data.title}</strong></a> : <span></span>}
+          {next ? <a class="next" href={`/blog/${next.id}/`}><small>下一篇</small><strong>{next.data.title}</strong></a> : <span></span>}
+        </nav>
+      </footer>
+    </div>
+  </article>
+</BaseLayout>

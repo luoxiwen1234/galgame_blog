@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArchiveHeader from '../../components/ArchiveHeader.astro';
+import { getPublishedPosts } from '../../lib/posts';
+const posts = await getPublishedPosts();
+const categories = [...new Set(posts.map((post) => post.data.category))].map((name) => ({ name, count: posts.filter((post) => post.data.category === name).length }));
+---
+<BaseLayout title="文章分类｜月色与盛夏之间"><div class="archive-page section"><ArchiveHeader eyebrow="CATEGORIES" title="文章分类" description="沿着不同主题，找到想读的故事。" /><div class="taxonomy-grid">{categories.map((category) => <a href={`/categories/${encodeURIComponent(category.name)}/`}><strong>{category.name}</strong><span>{category.count} 篇文章</span></a>)}</div></div></BaseLayout>

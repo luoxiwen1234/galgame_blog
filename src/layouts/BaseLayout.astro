@@ -1,0 +1,55 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = '月色与盛夏之间',
+  description = '收藏那些在月光与海风中闪耀的相遇，也记录关于游戏、角色与故事的文字。',
+  image = '/assets/summer-main-desktop.jpg',
+} = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fffaf6" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title="月色与盛夏之间" href="/rss.xml" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%E2%98%BE%3C/text%3E%3C/svg%3E" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="app theme-summer" id="app">
+      <header class="site-header">
+        <a class="brand" href="/" aria-label="返回首页"><span class="brand-mark" aria-hidden="true">☾</span><span>月色与盛夏之间</span></a>
+        <nav class="nav" id="nav" aria-label="主导航">
+          <a href="/">首页</a><a href="/blog/">文章</a><a href="/categories/">分类</a><a href="/#characters">图鉴</a><a href="/about/">关于</a>
+        </nav>
+        <div class="header-actions">
+          <button class="theme-switch" id="themeSwitch" aria-label="切换到月夜主题"><span data-theme="moon">☾ 月夜</span><span class="active" data-theme="summer">☀ 盛夏</span></button>
+          <button class="menu-button" id="menuButton" aria-label="打开菜单">☰</button>
+        </div>
+      </header>
+      <main><slot /></main>
+      <footer class="footer blog-footer">
+        <div class="footer-shine"></div>
+        <div class="footer-brand"><span aria-hidden="true">☾</span><h2>月色与盛夏之间</h2><p>收藏相遇，也认真写下故事。</p></div>
+        <div class="footer-bottom"><p>本站为非商业个人博客，作品与图片版权归原权利方所有。</p><div><a href="/rss.xml">RSS</a><a href="/about/">关于本站</a></div></div>
+      </footer>
+    </div>
+    <script is:inline src="/scripts/theme.js"></script>
+  </body>
+</html>
