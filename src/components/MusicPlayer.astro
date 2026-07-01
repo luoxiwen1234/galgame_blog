@@ -1,11 +1,17 @@
 <div class="music-player" id="musicPlayer" data-state="paused">
-  <audio id="backgroundMusic" loop preload="metadata" src="/audio/background.mp3"></audio>
+  <audio id="backgroundMusic" loop preload="metadata"></audio>
+  <button class="music-skip" id="musicPrevious" type="button" aria-label="上一首">‹</button>
   <button class="music-toggle" id="musicToggle" type="button" aria-label="播放背景音乐" aria-pressed="false">
     <span class="music-disc" aria-hidden="true"><i></i></span>
     <span class="music-label">播放音乐</span>
   </button>
+  <button class="music-skip" id="musicNext" type="button" aria-label="下一首">›</button>
+  <label class="music-track-picker">
+    <span>选择音乐</span>
+    <select id="musicTrackSelect" aria-label="选择背景音乐"><option>加载曲目中…</option></select>
+  </label>
   <label class="music-volume" aria-label="背景音乐音量">
-    <span aria-hidden="true">音量</span>
+    <span>音量</span>
     <input id="musicVolume" type="range" min="0" max="1" step="0.05" value="0.35" />
   </label>
 </div>
