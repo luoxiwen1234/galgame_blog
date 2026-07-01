@@ -104,6 +104,8 @@ img { display: block; max-width: 100%; }
 .wiki-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 20px; padding-bottom: 7px; color: var(--character-color); border-bottom: 1px solid color-mix(in srgb, var(--character-color) 55%, transparent); font-size: 13px; font-weight: 600; letter-spacing: .06em; transition: gap .22s ease, color .22s ease, border-color .22s ease; }
 .wiki-link:hover, .wiki-link:focus-visible { gap: 15px; color: var(--ink); border-color: var(--ink); }
 .wiki-link span { font-size: 16px; }
+.detail-links { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 20px; }
+.detail-links .wiki-link { margin-top: 0; }
 .character-rail { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-content: start; max-height: 570px; overflow-y: auto; padding-right: 6px; scrollbar-width: thin; scrollbar-color: rgba(117,103,181,.3) transparent; }
 .character-thumb { position: relative; min-height: 205px; padding: 0; overflow: hidden; color: var(--ink); border: 1px solid var(--line); border-radius: 4px 24px 4px 24px; background: var(--surface); cursor: pointer; text-align: left; transition: transform .25s ease, border .25s ease, box-shadow .25s ease, background-color .5s ease, color .5s ease; }
 .character-thumb:hover, .character-thumb.active { transform: translateY(-3px); border-color: rgba(117,103,181,.45); box-shadow: 0 12px 24px rgba(67,53,88,.1); }
