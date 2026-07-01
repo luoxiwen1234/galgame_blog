@@ -63,6 +63,20 @@
 .about-image img { width: 100%; min-height: 580px; object-fit: cover; }
 .blog-footer { min-height: 430px; }
 
+.music-player { position: fixed; z-index: 60; right: 22px; bottom: 22px; display: flex; align-items: center; gap: 8px; padding: 7px; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; background: var(--surface-glass); box-shadow: 0 14px 40px rgba(27,23,48,.16); backdrop-filter: blur(16px); transition: background-color .5s ease, border-color .5s ease; }
+.music-toggle { display: flex; align-items: center; gap: 9px; min-height: 38px; padding: 0 12px 0 5px; color: inherit; border: 0; border-radius: 999px; background: transparent; cursor: pointer; }
+.music-disc { position: relative; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: conic-gradient(from 20deg, var(--violet), var(--rose), var(--blue), var(--violet)); box-shadow: inset 0 0 0 5px rgba(255,255,255,.2); }
+.music-disc::after { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--surface); }
+.music-disc i { position: absolute; inset: -3px; border: 1px solid color-mix(in srgb, var(--violet) 38%, transparent); border-radius: 50%; }
+.music-player[data-state='playing'] .music-disc { animation: musicSpin 4s linear infinite; }
+.music-player[data-state='error'] .music-disc { filter: grayscale(1); opacity: .55; }
+.music-label { min-width: 56px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.music-volume { display: flex; align-items: center; width: 0; overflow: hidden; opacity: 0; transition: width .25s ease, opacity .2s ease; }
+.music-player:hover .music-volume, .music-player:focus-within .music-volume { width: 92px; opacity: 1; }
+.music-volume span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.music-volume input { width: 82px; accent-color: var(--violet); cursor: pointer; }
+@keyframes musicSpin { to { transform: rotate(360deg); } }
+
 @media (max-width: 900px) {
   .post-grid { grid-template-columns: 1fr 1fr; }
   .post-card.featured { grid-template-columns: 1fr; }
@@ -91,4 +105,7 @@
   .post-pagination { grid-template-columns: 1fr; }
   .post-pagination a.next { text-align: left; }
   .about-image img { min-height: 360px; }
+  .music-player { right: 12px; bottom: 12px; }
+  .music-volume { display: none; }
+  .music-label { min-width: auto; }
 }

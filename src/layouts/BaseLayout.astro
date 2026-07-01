@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import MusicPlayer from '../components/MusicPlayer.astro';
 
 interface Props {
   title?: string;
@@ -49,7 +50,9 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.u
         <div class="footer-brand"><span aria-hidden="true">☾</span><h2>月色与盛夏之间</h2><p>收藏相遇，也认真写下故事。</p></div>
         <div class="footer-bottom"><p>本站为非商业个人博客，作品与图片版权归原权利方所有。</p><div><a href="/rss.xml">RSS</a><a href="/about/">关于本站</a></div></div>
       </footer>
+      <MusicPlayer />
     </div>
     <script is:inline src="/scripts/theme.js"></script>
+    <script is:inline src="/scripts/music.js"></script>
   </body>
 </html>
